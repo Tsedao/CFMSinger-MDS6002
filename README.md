@@ -1,11 +1,8 @@
 # CFMSinger: Improve Singing Voice Conversion via Fast Conditional Flow Matching
-
-CFMSinger is a deep learning model that uses a conditional flow matching approach to improve the quality and sample speed of singing voice conversion. The model outperforms two baseline models based on GAN and Diffusion vocoder in terms of audio quality and similarity to the target singer.
-
-
-[![Python](https://img.shields.io/badge/Python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/) [![PyTorch](https://img.shields.io/badge/PyTorch-1.13.0-blue.svg)](https://pytorch.org/) [![Hugging Face Transformers](https://img.shields.io/badge/Transformers-4.11.3-brightgreen.svg)](https://huggingface.co/transformers/)
+[![Python](https://img.shields.io/badge/Python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/) [![PyTorch](https://img.shields.io/badge/PyTorch-1.13.0-blue.svg)](https://pytorch.org/) [![Hugging Face Transformers](https://img.shields.io/badge/Transformers-4.11.3-brightgreen.svg)](https://huggingface.co/transformers/) ![OpenAI Whisper Badge](https://img.shields.io/badge/OpenAI-Whisper-8f00b3.svg) ![OpenAI Librosa Badge](https://img.shields.io/badge/OpenAI-Librosa-FF6600.svg)
 
 
+CFMSinger is a deep learning model that uses a conditional flow matching approach to improve the quality and sample speed of a many-to-many singing voice conversion. The model is intended to outperform two baseline models based on GAN and Diffusion vocoder in terms of audio quality and inference speed from a source singer to the target singer.
 
 
 ## Installation
