@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 ## Model Architecture
 The proposed model architecture is shown in the following diagram:
-![Model Architecture](assets/nlp.pdf)
+![Model Architecture](assets/nlp.png)
 
 ## Usage
 ### Config and Preprocess
