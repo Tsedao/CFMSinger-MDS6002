@@ -209,11 +209,11 @@ def train(rank, world_size, experiment_path, logger, args, h):
     ## start training !!
     steps = 0
     # Best results on validation dataset
-    best_val_result = -np.inf
+    best_val_result = np.inf
     best_val_epoch = -1
     
     if rank == 0:
-        best_val_result = evaluate(val_loader,svc, sw, steps=steps,h=h,device=device)
+        _ = evaluate(val_loader,svc, sw, steps=steps,h=h,device=device)
 
     for epoch in range(num_epoches):
         
@@ -305,7 +305,7 @@ def train(rank, world_size, experiment_path, logger, args, h):
         if rank == 0:
             val_result = evaluate(val_loader,svc, sw, steps=steps,h=h,device=device)    
             # Save model
-            if val_result >= best_val_result:
+            if val_result <= best_val_result:
                 # model file
                 save_checkpoint(os.path.join(save_path,f"g_{epoch:03d}.pt"),
                     {'svc': (svc.module if world_size > 1 else svc).state_dict()})
