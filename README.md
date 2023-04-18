@@ -55,7 +55,7 @@ The following figures show the results of our experiments:
 
 ### Audio Samples
 ![Audio Samples](assets/tb_audio.png)
-| Audio File | Groundtruth |  Generated  | Conversion  |
+<!-- | Audio File | Groundtruth |  Generated  | Conversion  |
 |------------|-------------|-------------|-------------|
 | HIFI-GAN   | <audio controls>
   <source src="assets/gt_clip3.wav" type="audio/wav">
@@ -63,7 +63,7 @@ The following figures show the results of our experiments:
   <source src="assets/GAN_pred_clip3.wav" type="audio/wav">
 </audio>| |
 | DiffWave   |            | | |
-| CFM        |            | | |
+| CFM        |            | | | -->
 
 ### Mel Spectrograms
 ![Mel Spectrograms](assets/tb_mel.png)
