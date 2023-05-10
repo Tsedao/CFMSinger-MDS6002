@@ -25,9 +25,9 @@ NUMS_OF_SINGER = 5
 ##
 TARGET_SAMPLE_RATE = 44100
 NUM_CHUNKS = 6
-MAX_WAV_LENGTH = NUM_CHUNKS * TARGET_SAMPLE_RATE
+MAX_WAV_LENGTH = NUM_CHUNKS * TARGET_SAMPLE_RATE   # clip raw wav preprocessing only
 MAX_WAV_VALUE = 32768.0
-
+MAX_AUDIO_LENGTH = 256000                         # clip wav for model input
 
 # WORLD hyparameters
 WORLD_SAMPLE_RATE = 44100

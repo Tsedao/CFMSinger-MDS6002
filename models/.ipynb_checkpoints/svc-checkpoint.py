@@ -4,6 +4,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from torchdiffeq import odeint_adjoint as odeint
+
 import numpy as np
 
 class BaseSVC(nn.Module):
@@ -138,4 +140,52 @@ class GANSVC(BaseSVC):
         
         waveform = self.vocoder(cond_signal)
         
-        return waveform, mel_rec 
+        return waveform, mel_rec
+    
+class CFMSVC(BaseSVC):
+    
+    def __init__(
+        self, 
+        lf0_encoder,
+        ppg_encoder,
+        pho_encoder,
+        decoder,
+        vocoder,
+        audio_len = 256000
+    ):
+        BaseSVC.__init__(self,lf0_encoder,ppg_encoder,
+                     pho_encoder,decoder,vocoder,audio_len)
+                
+    def forward(self, lf0, ppg, pho, t, waveform):
+        """
+        Args: 
+            lf0 : [N,1,T] channel first
+            ppg : [N,T,WHISPER_DIM] channel last
+            pho : [N,T,HUBERT_DIM] channel last
+        """
+    
+        cond_signal, mel_rec = self.get_cond(lf0, ppg, pho)
+        
+        waveform = waveform.unsqueeze(1)
+        x = (waveform, cond_signal)
+        
+        noise, _ = self.vocoder(t,x)
+        
+        return noise, mel_rec
+    
+    def inference(self, lf0, ppg, pho, steps=10):
+        
+        with torch.no_grad():
+            cond_signal, _ = self.get_cond(lf0, ppg, pho)
+            bs = cond_signal.shape[0]
+            noise = (0.1 * torch.randn((bs, self.audio_len))).to(cond_signal)
+            audio, _ = odeint(
+                       self.vocoder,
+                       y0=(noise,cond_signal),
+                       t=torch.linspace(0,1,steps).to(cond_signal),
+                       method="dopri5",
+                       atol=1e-4, 
+                       rtol=1e-4,
+                       adjoint_options=dict(norm="seminorm")
+                      )
+        return audio 
